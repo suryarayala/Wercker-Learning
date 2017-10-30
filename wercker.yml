@@ -1,6 +1,5 @@
+box: node:4.5.0-slim
 build:
-  box: node:4.5.0-slim
-
   steps:
     - npm-install
     - npm-test
@@ -8,9 +7,9 @@ build:
       name: lint all the code
       code: |
         npm run lint
-  after-steps:
+# note the indentation, this is still part of the build pipeline
+  after-steps:                    
     - slack-notifier:
         url: $SLACK_URL
-        channel: notifications
         username: werckerbot
-  
+        channel: notifications
