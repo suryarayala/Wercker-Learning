@@ -1,15 +1,28 @@
-box: node:4.5.0-slim
-build:
-  steps:
-    - npm-install
-    - npm-test
-    - script
-      name: lint all the code
-      code: |
-        npm run lint
+# This references the default nodejs container from
+# the Docker Hub: https://registry.hub.docker.com/_/node/
+ 
+ box: node
+ 
+ build:
+   # The steps that will be executed on build
+   # Steps make up the actions in your pipeline
+   
+   steps:
+     # A step that executes `npm install` command
+     - npm-install
+ 
+     # A custom script step, name value is used in the UI
+     # and the code value contains the command that get executed
+     - script:
+         name: echo nodejs information
+         code: |
+           echo "node version $(node -v) running"
+           echo "npm version $(npm -v) running"
+
+
 # note the indentation, this is still part of the build pipeline
-  after-steps:                    
-    - slack-notifier:
-        url: $SLACK_URL
-        username: werckerbot
-        channel: notifications
+   after-steps:                    
+     - slack-notifier:
+         url: $SLACK_URL
+         username: werckerbot
+         channel: notifications
