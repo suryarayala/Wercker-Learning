@@ -64,7 +64,7 @@
          code: |
            ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "sudo cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml rm -f -v"
      - script:
-         name: Rcreate all service/containers
+         name: Rcreate all service/containers.
          code: |
            ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "sudo cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml create --force-recreate"
      - script:
