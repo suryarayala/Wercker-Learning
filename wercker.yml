@@ -48,7 +48,7 @@
    box: node:latest
    steps:
      - wercker/add-ssh-key:
-         keyname: KUBE-LEARN
+         keyname: DOCKER_AWS_DEV
      - add-to-known_hosts:
          hostname: $DEV_REMOTE_HOST
      - script:
