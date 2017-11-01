@@ -48,7 +48,7 @@
    box: node:latest
    steps:
      - wercker/add-ssh-key:
-         keyname: WERCKER-DEPLOYMENT
+         keyname: KUBE-LEARN
      - add-to-known_hosts:
          hostname: $DEV_REMOTE_HOST
      - script:
