@@ -44,11 +44,11 @@
          registry: https://registry.hub.docker.com
          ports: 80 443
          cmd: nginx -g 'daemon off';
- deploy-dev:
+ deploy-dev-qpp2:
    box: node:latest
    steps:
      - wercker/add-ssh-key:
-         keyname: RAVI_DOCKER_AWS
+         keyname: WERCKER-DEPLOYMENT
      - add-to-known_hosts:
          hostname: $DEV_REMOTE_HOST
      - script:
