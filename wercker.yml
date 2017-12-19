@@ -54,21 +54,25 @@
      - script:
          name: Pull newest docker images
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml pull"
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker pull devopscafe/amusement-park
      - script:
          name: Stop all running containers
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml stop"
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker stop ravi-linux || echo ‘failed to stop running container’
      - script:
          name: Remove stopped service/containers
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml rm -f -v"
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker rm ravi-linux || echo ‘failed to remove stopped container’
      - script:
-         name: Rcreate all service/containers.
+         name: Remove Image behind all service/containers.
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml create --force-recreate"
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker rmi devopscafe/amusement-park:current || echo ‘failed to remove image behind stopped container’
+     script:
+         name: Tag the pulled image
+         code: |
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker tag devopscafe/amusement-park:latest devopscafe/amusement-park:current
      - script:
          name: Start all services/containers
          code: |
-           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST "cd ~/deployments; sudo /usr/local/bin/docker-compose -f docker-compose.yml start"
+           ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker container run --detach -p 80:80 --name ravi-linux devopscafe/amusement-park:current
  
