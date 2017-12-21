@@ -67,7 +67,7 @@
          name: Remove Image behind all service/containers.
          code: |
            ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker rmi devopscafe/amusement-park:current || echo ‘failed to remove image behind stopped container’
-     script:
+     - script:
          name: Tag the pulled image
          code: |
            ssh $DEV_REMOTE_USER@$DEV_REMOTE_HOST docker tag devopscafe/amusement-park:latest devopscafe/amusement-park:current
